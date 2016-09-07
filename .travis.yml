@@ -1,0 +1,25 @@
+sudo: false
+
+language: c
+
+cache:
+  directories:
+  - $HOME/.stack
+
+# GHC depends on GMP.
+addons:
+  apt:
+    packages:
+    - libgmp-dev
+
+# Agda 2.5.1.1
+env:
+- ARGS="--resolver nightly-2016-09-07"
+
+before_install:
+- mkdir -p ~/.local/bin
+- export PATH=$HOME/.local/bin:$PATH
+- travis_retry curl -L https://www.stackage.org/stack/linux-x86_64 | tar xz --wildcards --strip-components=1 -C ~/.local/bin '*/stack'
+- stack $ARGS --no-terminal --install-ghc install Agda
+
+script: agda src/Example.agda

@@ -1,28 +1,10 @@
-sudo: false
+sudo: required
 
-language: c
-
-cache:
-  directories:
-  - $HOME/.stack
-
-# GHC depends on GMP.
-addons:
-  apt:
-    packages:
-    - libgmp-dev
-
-# Agda 2.5.1.1
-env:
-- ARGS="--resolver nightly-2016-09-07"
+services:
+  - docker
 
 before_install:
-- mkdir -p ~/.local/bin
-- export PATH=$HOME/.local/bin:$PATH
-- travis_retry curl -L https://www.stackage.org/stack/linux-x86_64 | tar xz --wildcards --strip-components=1 -C ~/.local/bin '*/stack'
-- travis_wait 30 stack $ARGS --no-terminal --install-ghc install Agda
+- docker pull scottfleischman/agda:2.5.1.1
 
 script:
-- agda src/Example.agda
-- agda -c --ghc-dont-call-ghc src/HelloWorld.agda
-- stack $ARGS ghc -- -isrc src/MAlonzo/Code/HelloWorld.hs -main-is MAlonzo.Code.HelloWorld
+- docker run -v $TRAVIS_BUILD_DIR:/opt/agda-build scottfleischman/agda:2.5.1.1 /bin/sh -c 'cd /opt/agda-build; agda src/Example.agda'

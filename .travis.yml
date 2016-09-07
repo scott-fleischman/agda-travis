@@ -24,4 +24,5 @@ before_install:
 
 script:
 - agda src/Example.agda
-- agda -c src/HelloWorld.agda
+- agda -c --ghc-dont-call-ghc src/HelloWorld.agda
+- stack $ARGS ghc -- -isrc src/MAlonzo/Code/HelloWorld.hs -main-is MAlonzo.Code.HelloWorld

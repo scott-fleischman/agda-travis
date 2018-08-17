@@ -4,3 +4,5 @@
 *.agda#
 *.agda~
 .#*.agda
+/src/MAlonzo/**
+/HelloWorld

@@ -10,12 +10,14 @@ before_install:
 
 script:
 # Type-check Example.agda
-- docker run -v $TRAVIS_BUILD_DIR:/opt/agda-build scottfleischman/agda:2.5.4.1 /bin/sh -c
+- >
+  docker run -v $TRAVIS_BUILD_DIR:/opt/agda-build scottfleischman/agda:2.5.4.1 /bin/sh -c
   'cd /opt/agda-build && \
    agda src/Example.agda'
 
 # Type-check HelloWorld.agda, generate Haskell code, compile using stack and system GHC, and run the compile program
-- docker run -v $TRAVIS_BUILD_DIR:/opt/agda-build scottfleischman/agda:2.5.4.1 /bin/sh -c
+- >
+  docker run -v $TRAVIS_BUILD_DIR:/opt/agda-build scottfleischman/agda:2.5.4.1 /bin/sh -c
   'cd /opt/agda-build && \
    agda --compile --ghc-dont-call-ghc src/HelloWorld.agda && \
    stack ghc --system-ghc --resolver lts-12.6 --package ieee754 -- -O -o HelloWorld -isrc -main-is MAlonzo.Code.HelloWorld src/MAlonzo/Code/HelloWorld.hs && \

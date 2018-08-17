@@ -10,3 +10,4 @@ before_install:
 
 script:
 - docker run -v $TRAVIS_BUILD_DIR:/opt/agda-build scottfleischman/agda:2.5.4.1 /bin/sh -c 'cd /opt/agda-build; agda src/Example.agda'
+- docker run -v $TRAVIS_BUILD_DIR:/opt/agda-build scottfleischman/agda:2.5.4.1 /bin/sh -c 'cd /opt/agda-build; agda -c src/HelloWorld.agda'

@@ -10,9 +10,9 @@ postulate
   putStrLn : String → IO ⊤
   _⟫=_  : {A B : Set} → IO A → (A → IO B) → IO B
 
-{-# IMPORT Data.Text.IO #-}
-{-# COMPILED putStrLn Data.Text.IO.putStrLn #-}
-{-# COMPILED _⟫=_ (\ _ _ a f -> a >>= f) #-}
+{-# FOREIGN GHC import qualified Data.Text.IO #-}
+{-# COMPILE GHC putStrLn = putStrLn #-}
+{-# COMPILE GHC _⟫=_  = \_ _ _ _ -> (>>=) #-}
 
 main : IO ⊤
 main
